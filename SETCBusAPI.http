@@ -1,0 +1,6 @@
+@SETCBusAPI_HostAddress = http://localhost:5089
+
+GET {{SETCBusAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
