@@ -63,8 +63,8 @@ namespace SETCBusAPI.Controllers
             catch(Exception ex)
             {
                 res.ResponseCode = "503";
-                res.ResponseMessage = "Unable to process your request. Please try again later";
-                Console.Write(ex.ToString());
+                res.ResponseMessage = "Unable to process your request. Please try again later. " + ex.Message.ToString();
+                Console.Write(ex.Message.ToString());
             }
 
             return res;
@@ -117,8 +117,8 @@ namespace SETCBusAPI.Controllers
             catch (Exception ex) 
             {
                 res.ResponseCode = "503";
-                res.ResponseMessage = "Unable to process your request. Please try again later";
-                Console.Write(ex.ToString());
+                res.ResponseMessage = "Unable to process your request. Please try again later. " + ex.Message.ToString();
+                Console.Write(ex.Message.ToString());
             }          
             
             return res;
@@ -186,8 +186,8 @@ namespace SETCBusAPI.Controllers
             catch(Exception ex)
             {
                 res.ResponseCode = "503";
-                res.ResponseMessage = "Unable to process your request. Please try again later";
-                Console.Write(ex.ToString());
+                res.ResponseMessage = "Unable to process your request. Please try again later. " + ex.Message.ToString();
+                Console.Write(ex.Message.ToString());
             }
 
             return res;
