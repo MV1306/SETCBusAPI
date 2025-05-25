@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SETCBusAPI.Data;
 
@@ -11,9 +12,11 @@ using SETCBusAPI.Data;
 namespace SETCBusAPI.Migrations
 {
     [DbContext(typeof(SETCDbContext))]
-    partial class SETCDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250525153619_AddBusRouteServiceStages")]
+    partial class AddBusRouteServiceStages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,45 +97,6 @@ namespace SETCBusAPI.Migrations
                     b.HasKey("ServiceID");
 
                     b.ToTable("BusRouteServices");
-                });
-
-            modelBuilder.Entity("SETCBusAPI.Models.BusRouteServiceStages", b =>
-                {
-                    b.Property<Guid>("StageID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Distance")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("ServiceID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("StageCity")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StageFlag")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StageName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StageOrder")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StageTime")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StageID");
-
-                    b.ToTable("BusRouteServiceStages");
                 });
 #pragma warning restore 612, 618
         }
