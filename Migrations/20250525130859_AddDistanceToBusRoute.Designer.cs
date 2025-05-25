@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SETCBusAPI.Data;
 
@@ -11,9 +12,11 @@ using SETCBusAPI.Data;
 namespace SETCBusAPI.Migrations
 {
     [DbContext(typeof(SETCDbContext))]
-    partial class SETCDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250525130859_AddDistanceToBusRoute")]
+    partial class AddDistanceToBusRoute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

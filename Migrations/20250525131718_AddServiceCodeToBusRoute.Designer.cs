@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SETCBusAPI.Data;
 
@@ -11,9 +12,11 @@ using SETCBusAPI.Data;
 namespace SETCBusAPI.Migrations
 {
     [DbContext(typeof(SETCDbContext))]
-    partial class SETCDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250525131718_AddServiceCodeToBusRoute")]
+    partial class AddServiceCodeToBusRoute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,6 +50,10 @@ namespace SETCBusAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RouteCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ServiceCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
