@@ -4,7 +4,7 @@ pipeline {
     environment {
         APP_POOL_NAME = 'SETCBusAPI'
         PROJECT_PATH = "${env.WORKSPACE}\\SETCBusAPI.csproj"
-        PUBLISH_DIR = "D:\\C# Projects\\SETCBusAPI\\bin\\\Release\\net8.0\\publish"
+        PUBLISH_DIR = "D:\\C# Projects\\SETCBusAPI\\bin\\Release\\net8.0\\publish"
     }
 
     stages {
