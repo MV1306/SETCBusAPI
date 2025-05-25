@@ -12,6 +12,7 @@ namespace SETCBusAPI.Data
         }
 
         public DbSet<BusRoute> BusRoutes { get; set; }
+        public DbSet<BusRouteService> BusRouteServices { get; set; }
 
     }
 }
