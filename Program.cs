@@ -1,6 +1,21 @@
+using Microsoft.EntityFrameworkCore;
+using SETCBusAPI.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder.AllowAnyOrigin()
+        //WithOrigins("https://localhost:44315")  // Allow the specific origin
+                           .AllowAnyHeader()
+                           .AllowAnyMethod());
+});
+
+builder.Services.AddDbContext<SETCDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
