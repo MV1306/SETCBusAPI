@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using SETCBusAPI.Data;
 using SETCBusAPI.DTO;
+using SETCBusAPI.Methods;
 using SETCBusAPI.Models;
+using System.Text.Json;
 
 namespace SETCBusAPI.Controllers
 {
@@ -11,15 +13,19 @@ namespace SETCBusAPI.Controllers
     public class FetchController : ControllerBase
     {
         private readonly SETCDbContext _context;
+        private readonly CommonServices _services;
 
-        public FetchController(SETCDbContext context)
+        public FetchController(SETCDbContext context, CommonServices services)
         {
             _context = context;
+            _services = services;
         }
 
         [HttpGet("/RouteDetails/{RouteCode}")]
         public async Task<CommonResult> GetRouteDetails(string RouteCode)
         {
+            var currentUrl = $"{Request.Scheme}://{Request.Host}{Request.Path}{Request.QueryString}";
+
             var res = new CommonResult();
             try
             {
@@ -29,6 +35,7 @@ namespace SETCBusAPI.Controllers
                 {
                     res.ResponseCode = "404";
                     res.ResponseMessage = "Route not found.";
+                    _services.saveAPILog(currentUrl, "Fetch", "GetRouteDetails", res.ResponseCode, res.ResponseMessage, JsonSerializer.Serialize(res));
                     return res;
                 }
 
@@ -64,6 +71,7 @@ namespace SETCBusAPI.Controllers
                 Console.WriteLine(ex.Message);
             }
 
+            _services.saveAPILog(currentUrl, "Fetch", "GetRouteDetails", res.ResponseCode, res.ResponseMessage, JsonSerializer.Serialize(res));
             return res;
         }
     }

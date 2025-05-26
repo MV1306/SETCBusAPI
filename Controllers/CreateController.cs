@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using SETCBusAPI.Data;
 using SETCBusAPI.DTO;
+using SETCBusAPI.Methods;
 using SETCBusAPI.Models;
+using System.Text.Json;
 
 namespace SETCBusAPI.Controllers
 {
@@ -11,15 +13,18 @@ namespace SETCBusAPI.Controllers
     public class CreateController : ControllerBase
     {
         private readonly SETCDbContext _context;
+        private readonly CommonServices _services;
 
-        public CreateController(SETCDbContext context) 
+        public CreateController(SETCDbContext context, CommonServices services)
         {
             _context = context;
+            _services = services;
         }
 
         [HttpPost("/Route")]
         public async Task<CommonResult> CreateRoute([FromBody] CreateRoute route)
         {
+            var currentUrl = $"{Request.Scheme}://{Request.Host}{Request.Path}{Request.QueryString}";
             var res = new CommonResult();
             try
             {
@@ -67,12 +72,14 @@ namespace SETCBusAPI.Controllers
                 Console.Write(ex.Message.ToString());
             }
 
+            _services.saveAPILog(currentUrl, "Create", "CreateRoute", res.ResponseCode, res.ResponseMessage, JsonSerializer.Serialize(res));
             return res;
         }
 
         [HttpPost("/RouteService")]
         public async Task<CommonResult> CreateRouteService([FromBody] CreateRouteService service)
         {
+            var currentUrl = $"{Request.Scheme}://{Request.Host}{Request.Path}{Request.QueryString}";
             var res = new CommonResult();
             try
             {
@@ -119,7 +126,8 @@ namespace SETCBusAPI.Controllers
                 res.ResponseCode = "503";
                 res.ResponseMessage = "Unable to process your request. Please try again later. " + ex.Message.ToString();
                 Console.Write(ex.Message.ToString());
-            }          
+            }
+            _services.saveAPILog(currentUrl, "Create", "CreateRouteService", res.ResponseCode, res.ResponseMessage, JsonSerializer.Serialize(res));
             
             return res;
         }
@@ -127,6 +135,7 @@ namespace SETCBusAPI.Controllers
         [HttpPost("/RouteServiceStages")]
         public async Task<CommonResult> CreateRouteServiceStages([FromBody] CreateRouteServiceStage stages)
         {
+            var currentUrl = $"{Request.Scheme}://{Request.Host}{Request.Path}{Request.QueryString}";
             var res = new CommonResult();
 
             try
@@ -189,6 +198,7 @@ namespace SETCBusAPI.Controllers
                 res.ResponseMessage = "Unable to process your request. Please try again later. " + ex.Message.ToString();
                 Console.Write(ex.Message.ToString());
             }
+            _services.saveAPILog(currentUrl, "Create", "CreateRouteServiceStages", res.ResponseCode, res.ResponseMessage, JsonSerializer.Serialize(res));
 
             return res;
         }

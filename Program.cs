@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using SETCBusAPI.Data;
+using SETCBusAPI.Methods;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<CommonServices>();
 
 builder.Services.AddCors(options =>
 {
